@@ -16,8 +16,10 @@ app.get("/",(req,res)=>{
     res.json({status:"ok"});
 })
 
-app.get("/follow",(req,res)=>{
+app.get("/follow/:last",(req,res)=>{
     // let follow_count = req.body.followers;
+    let last = req.params.last;
+    console.log(last);
     const token = process.env.BEARER_TOKEN
 if (!token) {
   terminate(
