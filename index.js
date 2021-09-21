@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.get("/",(req,res)=>{
     let follow_count = req.body.followers;
-    res.json({status:"ok"});
+    res.json({status:follow_count});
 })
 
 const token = process.env.BEARER_TOKEN
