@@ -16,8 +16,8 @@ app.get("/",(req,res)=>{
     res.json({status:"ok"});
 })
 
-app.get("/follow",(req,res)=>{
-    let follow_count = req.body.followers;
+app.get("/follow/:follow_count",(req,res)=>{
+    // let follow_count = req.body.followers;
     res.json({status:follow_count});
 })
 
