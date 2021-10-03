@@ -10,9 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "canvas": "^2.8.0",
     "chalk": "^4.1.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "html-to-image": "^1.8.5",
     "needle": "^3.0.0"
   }
 }
