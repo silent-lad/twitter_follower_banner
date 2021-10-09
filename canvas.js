@@ -3,33 +3,57 @@ const { registerFont, createCanvas, loadImage } = require('canvas')
 
 registerFont('MadHacker.ttf', { family: 'MadHacker' })
 
-const width = 1500
-const height = 500
+module.exports.generateImage  = async function(count) {
+    if(!count) count='';
+    const width = 1500
+    const height = 500
 
-const canvas = createCanvas(width, height)
-const context = canvas.getContext('2d')
+    const canvas = createCanvas(width, height)
+    const context = canvas.getContext('2d')
 
-context.fillStyle = '#fff'
-context.fillRect(0, 0, width, height)
+    // Background Setting
+    context.fillStyle = '#fff'
+    context.fillRect(0, 0, width, height)
 
-context.font = '70pt "MadHacker"'
-context.textAlign = 'center'
-context.textBaseline = 'top'
-context.fillStyle = '#3574d4'
+    // Heading Settings 
+    context.font = '70pt "MadHacker"'
+    context.textAlign = 'center'
+    context.textBaseline = 'top'
+    context.fillStyle = '#3574d4'
 
-const text = 'HI I AM silentlad'
+    const text = 'HI I AM silentlad'
 
-const textWidth = context.measureText(text).width
-context.fillRect(600 - textWidth / 2 - 10, 170 - 5, textWidth + 20, 120)
-context.fillStyle = '#000'
-context.fillText(text, 600, 170)
+    const headingPos = {
+        top: 170,
+        left: 750
+    }
+    const textWidth = context.measureText(text).width
+    context.fillRect(headingPos.left - textWidth / 2 - 10, headingPos.top - 5, textWidth + 20, 120)
+    context.fillStyle = '#000'
+    context.fillText(text, headingPos.left, headingPos.top)
 
-context.fillStyle = '#000'
-context.font = 'bold 30pt Menlo'
-context.fillText('silentlad.com', 500, 530)
+    // Subheading Setting 
+    const subHeadingPos = {
+        top: 300,
+        left: 750
+    }
+    context.fillStyle = '#000'
+    context.font = 'bold 20pt Menlo'
+    context.fillText(`${count} strong`, subHeadingPos.left, subHeadingPos.top)
 
-loadImage('./logo.jpg').then(image => {
-  context.drawImage(image, 340, 415, 70, 70)
-  const buffer = canvas.toBuffer('image/png')
-  fs.writeFileSync('./test.png', buffer)
-})
+    // Footer Settings
+    context.fillStyle = '#000'
+    context.font = 'bold 20pt Menlo'
+    context.fillText(`silentlad.com`, 750, 375)
+
+    // Logo image loading and Image generation 
+    const logo = {
+        top: 100,
+        left: 100
+    }
+    const image = await loadImage('./logo.jpg').then
+        // context.drawImage(image, logo.left, logo.top, 300, 300)
+    const buffer = canvas.toBuffer('image/png')
+    await fs.writeFileSync('./test.png', buffer)
+    return 
+}
