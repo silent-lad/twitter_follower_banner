@@ -4,6 +4,8 @@ const { registerFont, createCanvas, loadImage } = require('canvas')
 registerFont('MadHacker.ttf', { family: 'MadHacker' })
 
 module.exports.generateImage  = async function(count) {
+    
+    
     if(!count) count='';
     const width = 1500
     const height = 500
