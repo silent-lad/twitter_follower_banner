@@ -19,6 +19,8 @@ setInterval(() => {
   }
   var userId = "906370059097972737";
 
+  console.log(auth_headers)
+
   needle('get', `https://api.twitter.com/1.1/users/show.json?user_id=${userId}`, {}, auth_headers)
     .then((response) => {
     if (
