@@ -8,9 +8,11 @@ const {uploadImage} = require('./upload');
 
 
 setInterval(() => {
+  var token = process.env.BEARER_TOKEN 
+  token.replace(/\r?\n|\r/g, '')
   const auth_headers = {
     headers: {
-       Authorization: `Bearer ${process.env.BEARER_TOKEN}`,
+      'Authorization': `Bearer ${token}`,
       'Content-type': 'application/json',
     },
     timeout: 20000,
