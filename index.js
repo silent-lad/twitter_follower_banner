@@ -3,33 +3,14 @@ const express = require("express");
 const needle = require("needle");
 const bodyParser = require("body-parser");
 const chalk = require("chalk");
-
-const app = express();
-
-app.set("port", process.env.PORT || 8080);
-
-app.use(express.urlencoded({extended: true})); 
-app.use(express.json());
+const {generateImage} = require('./canvas');
+const {uploadImage} = require('./upload');
 
 
-app.get("/",(req,res)=>{
-    res.json({status:"ok"});
-})
-
-app.get("/follow/:last",(req,res)=>{
-    // let follow_count = req.body.followers;
-    let last = req.params.last;
-    console.log(last);
-    const token = process.env.BEARER_TOKEN
-if (!token) {
-  terminate(
-    'Config mismatch. Expected BEARER_TOKEN environment variable to contain a Twitter API token. Found undefined',
-  )
-}
-
-const auth_headers = {
+setInterval(() => {
+  const auth_headers = {
     headers: {
-       Authorization: `Bearer ${token}`,
+       Authorization: `Bearer ${process.env.BEARER_TOKEN}`,
       'Content-type': 'application/json',
     },
     timeout: 20000,
@@ -41,11 +22,12 @@ const auth_headers = {
     if (
         response.body 
     ) {
-        res.json({status:response.body.followers_count});
+      generateImage(response.body.followers_count).then(()=>{
+        uploadImage();
+      })
     }
   })
-})
+  
+}, 6000);
 
-app.listen(app.get("port"), () => {
-    console.log("Listeneing at port 8080");
-  });
+
