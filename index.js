@@ -26,6 +26,8 @@ setInterval(() => {
         uploadImage();
       })
     }
+  }).catch((err)=>{
+    console.log(err);
   })
   
 }, 6000);
