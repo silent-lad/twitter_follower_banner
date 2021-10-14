@@ -5,6 +5,18 @@ const needle = require("needle");
 const {generateImage} = require('./lib/canvas');
 const {uploadImage} = require('./lib/upload');
 
+const app = express();
+
+app.set("port", process.env.PORT || 8080);
+
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
+
+
+app.get("/",(req,res)=>{
+    res.json({status:"ok"});
+})
+
 
 setInterval(() => {
   var token = process.env.BEARER_TOKEN 
@@ -34,5 +46,9 @@ setInterval(() => {
   })
   
 }, 6000);
+
+app.listen(app.get("port"), () => {
+    console.log("Listeneing at port 8080");
+  });
 
 
