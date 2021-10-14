@@ -1,10 +1,9 @@
 require('dotenv').config()
-const express = require("express");
+
 const needle = require("needle");
-const bodyParser = require("body-parser");
-const chalk = require("chalk");
-const {generateImage} = require('./canvas');
-const {uploadImage} = require('./upload');
+
+const {generateImage} = require('./lib/canvas');
+const {uploadImage} = require('./lib/upload');
 
 
 setInterval(() => {

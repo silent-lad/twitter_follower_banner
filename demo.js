@@ -1,8 +1,7 @@
-const {generateImage} = require('./canvas');
-const {uploadImage} = require('./upload');
+const {generateImage} = require('./lib/canvas');
+const {uploadImage} = require('./lib/upload');
 
-console.log();
 
-generateImage(96).then(()=>{
-    uploadImage();
+generateImage(2143).then(()=>{
+    // uploadImage();
 })
