@@ -14,7 +14,7 @@ module.exports.generateImage  = async function(count) {
     const context = canvas.getContext('2d')
 
     // Background Setting
-    context.fillStyle = '#fff'
+    context.fillStyle = '#000'
     context.fillRect(0, 0, width, height)
 
     // Heading Settings 
@@ -31,7 +31,7 @@ module.exports.generateImage  = async function(count) {
     }
     const textWidth = context.measureText(text).width
     context.fillRect(headingPos.left - textWidth / 2 - 10, headingPos.top - 5, textWidth + 20, 120)
-    context.fillStyle = '#000'
+    context.fillStyle = '#fff'
     context.fillText(text, headingPos.left, headingPos.top)
 
     // Subheading Setting 
@@ -39,12 +39,12 @@ module.exports.generateImage  = async function(count) {
         top: 300,
         left: 750
     }
-    context.fillStyle = '#000'
+    context.fillStyle = '#fff'
     context.font = 'bold 20pt Menlo'
     context.fillText(`${count} strong`, subHeadingPos.left, subHeadingPos.top)
 
     // Footer Settings
-    context.fillStyle = '#000'
+    context.fillStyle = '#fff'
     context.font = 'bold 20pt Menlo'
     context.fillText(`silentlad.com`, 750, 375)
 
