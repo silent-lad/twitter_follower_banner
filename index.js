@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const needle = require("needle");
+const express = require("express");
 
 const {generateImage} = require('./lib/canvas');
 const {uploadImage} = require('./lib/upload');
@@ -18,9 +19,11 @@ app.get("/",(req,res)=>{
 })
 
 
-setInterval(() => {
-  var token = process.env.BEARER_TOKEN 
+setInterval(async() => {
+
+  const token = process.env.BEARER_TOKEN 
   token.replace(/\r?\n|\r/g, '')
+
   const auth_headers = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -28,27 +31,26 @@ setInterval(() => {
     },
     timeout: 20000,
   }
-  var userId = "906370059097972737";
+
+  const userId = "906370059097972737";
 
   console.log(auth_headers)
 
-  needle('get', `https://api.twitter.com/1.1/users/show.json?user_id=${userId}`, {}, auth_headers)
-    .then((response) => {
-    if (
-        response.body 
-    ) {
-      generateImage(response.body.followers_count).then(()=>{
-        uploadImage();
-      })
+  let response = await needle('get', `https://api.twitter.com/1.1/users/show.json?user_id=${userId}`, {}, auth_headers)
+    
+  if (response.body ) {
+    try{
+      await generateImage(response.body.followers_count)
+      uploadImage();
+    }catch(err){
+      console.log(err);
     }
-  }).catch((err)=>{
-    console.log(err);
-  })
+  }
   
 }, 6000);
 
 app.listen(app.get("port"), () => {
     console.log("Listeneing at port 8080");
-  });
+});
 
 
